@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="main.css">
+	<style>
+	body{
+		background-color: #fff;
+
+	}
+	div:not(.templates){
+		width: 180px;
+		cursor: pointer;
+		background: #fff;
+		text-align: center;
+		border-radius: 5px;
+		height: 30px;
+		line-height:30px;
+		
+
+	}
+	div:not(.templates):hover{
+		background: #eee;
+	}
+	.templates{
+		width: 100%;
+		text-align: center;
+		height: 30px;
+		color: #ccc;
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 30px;
+	}
+	#anytag, #delim, #what_elem_del{
+		background-color: #fff;
+		/*box-shadow: inset 0px 0px 0px #bbb;*/
+		border-radius: 3px;
+		outline:none;
+		border:1px solid #eee;
+		height: 20px;
+		width: 100%;
+		/*padding: 0 5px 0 5px;*/
+		font-size: 15px;
+		text-align: center;
+		margin: 2px 0 0 0 ;
+	}
+
+	</style>
+
+</head>
+
+<script src="jquery-2.1.4.min.js"></script>
+<script src="popup.js"></script>
+<body>
+		<input type="text" id="anytag" placeholder='search by any tag'>
+		<input type="text" id="delim" placeholder='delimiter default: b'>
+		<input type="text" id="what_elem_del" placeholder="what element delete">
+		<div class="templates">Templates</div>
+		<div id='ptag'>p tag[universal]</div>
+		<div id="blockquote">blockquote</div>
+		<div id='r_block'>right block[psyh.ru]</div>
+		<div id='p_frame_tag'>p-frame-tag</div>
+		<div id='all_aph'>all-aph</div>
+		<div id='quote'>quote[livelib]</div>
+
+</body>
+</html>

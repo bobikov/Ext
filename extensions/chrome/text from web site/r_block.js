@@ -1,0 +1,1 @@
+alert($('.rightBlock :first-child').text());

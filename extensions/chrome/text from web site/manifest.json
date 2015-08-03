@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "manifest_version": 2,
+  "name": "TEXT FROM PAGE",
+ "description": "TEXT FROM PAGE",
+  "background": {
+  "scripts": ["background.js"],
+  "persistent": true
+},
+ "browser_action": {
+  	"default_icon": "icon-128.png",
+  	"default_title": "TEXT FROM PAGE",
+	"default_popup": "popup.html"
+ },
+ "icons": {
+     "16": "icon-16.png",
+     "48": "icon-48.png",
+     "128": "icon-128.png" },
+ "permissions": [
+    "unlimitedStorage",
+     "tabs", "<all_urls>", "http://*/", "https://*/"
+ ],
+ "content_scripts": [
+    {
+      "css":["main.css"],
+      "matches": ["<all_urls>"],
+      "js": [ "jquery-2.1.4.min.js", "anytag.js"],
+      "run_at":"document_end",
+      "all_frames": true
+    }
+]
+// "web_accessible_resources": [
+//     "popup.html"
+//   ]
+}
