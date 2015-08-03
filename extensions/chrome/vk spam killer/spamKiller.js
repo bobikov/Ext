@@ -98,6 +98,7 @@ function banOne(){
 		$.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
 		var requestedBytes = 1024*1024*280;
 		webkitRequestFileSystem(window.TEMPORARY, requestedBytes, onInitFs, errorHandler);
+		hider();
 		// $.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
 		// (event.target.id=='replyBan') ? cookieBanIds.push(event.target.parentNode.childNodes[1].getAttribute('href')) : cookieBanIds.push(event.target.parentNode.childNodes[0].getAttribute('href'));
 		// var readyToCookieArray=cookieBanIds.concat(getCookieToArray);
