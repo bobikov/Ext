@@ -28,7 +28,7 @@
     {
       "matches": ["https://vk.com/*"],
       "css": ["main.css"],
-      "js": [ "jquery-2.1.4.min.js", "jquery.cookie.js", "loader.js", "fileSaver.js", "jsonParser.js" ]
+      "js": [ "jquery-2.1.4.min.js", "jquery.cookie.js", "spamKiller.js", "loader.js", "fileSaver.js", "jsonParser.js"]
     }
 ],
 

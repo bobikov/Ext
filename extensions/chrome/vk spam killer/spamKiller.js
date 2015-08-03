@@ -1,4 +1,4 @@
-logo = document.getElementsByClassName('.logo'),
+var logo = document.getElementsByClassName('.logo'),
 bar = document.getElementsByClassName('.bar'),
 logoText = document.getElementsByClassName('.spam_killer'),
 delCookie = document.getElementById('delCookie'), 
@@ -8,9 +8,14 @@ cookieBigBans=[].
 cookieBanIds = [],
 cookieUnbanIds=[],
 userid = [],
+banId,
+ccc = 0;
 // $.get(chrome.extension.getURL('banlist.json'), function(data){
 // 	var parsed = $.parseJSON(data);
 // 	userid = parsed[0].items;
+// });
+// chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+	
 // });
 hider();
 function hider() {	
@@ -47,7 +52,7 @@ function hider() {
 			var tagA = document.getElementsByTagName('a');
 			var wallText = document.querySelectorAll('.wall_post_text, .wall_reply_text, .bp_text');
 			bar.innerHTML='Banned: ' + userid.length;
-			cross( tagA, userid.concat(cookieBigBans), wallText);
+			cross( tagA, ids, wallText);
 			function cross(Arr1, Arr2, Arr3){
 				for ( i=0; i < Arr1.length; i++ ){
 					if ( Arr1[i].className == 'author' ){
@@ -84,21 +89,22 @@ function hider() {
 		})
 	}
 
-getCookieToArray = ( $.cookie('ids')) ? JSON.parse($.cookie('ids')) : '';
-cookieBigBans = getCookieToArray;
+// getCookieToArray = ( $.cookie('ids')) ? JSON.parse($.cookie('ids')) : '';
+// cookieBigBans = getCookieToArray;
 
 function banOne(){
-		$.removeCookie('ids');
-		cookieBanIds=[];
-
-		(event.target.id=='replyBan') ? cookieBanIds.push(event.target.parentNode.childNodes[1].getAttribute('href')) : cookieBanIds.push(event.target.parentNode.childNodes[0].getAttribute('href'));
-		var readyToCookieArray=cookieBanIds.concat(getCookieToArray);
-		$.cookie('ids', JSON.stringify(readyToCookieArray), {expires: 1000});
-		getCookieToArray = ( $.cookie('ids')) ? JSON.parse($.cookie('ids')) : '';
-		cookieBigBans = getCookieToArray;
-		$("#page_wall_header b").text('started');
-
-
+		// $.removeCookie('ids');
+		// cookieBanIds=[];
+		$.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
+		var requestedBytes = 1024*1024*280;
+		webkitRequestFileSystem(window.TEMPORARY, requestedBytes, onInitFs, errorHandler);
+		// $.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
+		// (event.target.id=='replyBan') ? cookieBanIds.push(event.target.parentNode.childNodes[1].getAttribute('href')) : cookieBanIds.push(event.target.parentNode.childNodes[0].getAttribute('href'));
+		// var readyToCookieArray=cookieBanIds.concat(getCookieToArray);
+		// $.cookie('ids', JSON.stringify(readyToCookieArray), {expires: 1000});
+		// getCookieToArray = ( $.cookie('ids')) ? JSON.parse($.cookie('ids')) : '';
+		// cookieBigBans = getCookieToArray;
+		// $("#page_wall_header b").text('started');
 
 }
 
@@ -124,6 +130,11 @@ $(document).ready(function(){
 	// $("#page_wall_posts").on("DOMNodeInserted", function(){
 	// 	alert("dd");
 	// });
+	// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+	// 			// banId = event.target.parentNode.childNodes[0].getAttribute('href');
+	// 			console.log(request);
+	// 			sendResponse('ok');
+	// });	
 	
 });
 

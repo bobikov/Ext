@@ -1,6 +1,15 @@
-;
 
 function onInitFs(fs) {
+	$(document).ready(function(){
+		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+			sendResponse(ids);
+			
+		});
+   		if ($.cookie('ids')!==undefined){
+			fileWriteAppend($.cookie('ids').toString());
+   	   		$.removeCookie('ids');
+		};
+	});
 	function createFile(name){
 		fs.root.getFile(name, {create:true, exclusive:true}, function(file){
 				console.log('file ' + name + ' created');
@@ -13,6 +22,7 @@ function onInitFs(fs) {
 				var reader = new FileReader();
 				reader.onloadend=function(e){
 					ids = this.result.split(',');
+					console.log(this.result);
 					
 				};
 			
@@ -40,13 +50,12 @@ function onInitFs(fs) {
        					console.log('Write failed: ' + e.toString());
       				};
       				fileWriter.truncate(0);
-      				var cookie =$.cookie('ids').replace(/[\[\]]/g, '');
-      				var blob = new Blob([cookie], {type:'text/plain'});
+      				var blob = new Blob(["/idtest"], {type:'text/plain'});
 			}, errorHandler);
 		}, errorHandler);
 	}
 	// fileReWrite();
-	function fileWriteAppend(){
+	function fileWriteAppend(ban_id){
 		fs.root.getFile('banlist.txt', {create: false}, function(fileEntry) {
 			fileEntry.createWriter(function(fileWriter) {
 				fileWriter.seek(fileWriter.length);
@@ -56,7 +65,7 @@ function onInitFs(fs) {
       				fileWriter.onerror = function(e) {
        					console.log('Write failed: ' + e.toString());
       				};
-				var blob = new Blob([', ' + banlist], {type:'text/plain'});
+				var blob = new Blob([',' + ban_id], {type:'text/plain'});
 				fileWriter.write(blob);
 			}, errorHandler);
 		}, errorHandler);
@@ -129,12 +138,4 @@ $.get(chrome.extension.getURL('banlist.json'), function(data){
 	var listIds = parsedFile[0].items;
 	banlist = listIds;
 });
-$(document).ready(function(){
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-	// console.log(request.message);
-	sendResponse(ids);
-})
-
-
-})

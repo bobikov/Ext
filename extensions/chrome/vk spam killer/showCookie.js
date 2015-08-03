@@ -1,3 +1,3 @@
 $(document).ready(function(){
-	alert(ids);
+	alert($.cookie('ids'));
 });
