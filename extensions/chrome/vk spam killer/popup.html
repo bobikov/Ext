@@ -3,19 +3,26 @@
   <head>
     <title>Getting Started Extension's Popup</title>
     <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" href="loaders.css-master/loaders.min.css">
+    <link rel="stylesheet" href="css-spinners-master/css/spinners.css">
     <script src="jquery-2.1.4.min.js"></script>
     <script src="jquery.cookie.js"></script>
     <script src="popup.js"></script>
-    <script src="loaders.css-master/loaders.css.js"></script>
+    <style>
+      .la-ball-atom {
+          color: red;
+          width: 100%;
+      }
+    </style>
    
-    
   </head>
   <body>
      <div class="spam_killer">
+
            <div id="logo" class="logo">SPAM KILLER</div>
-           <div id="bar" class="bar">Banned: 0</div>
-           <div id="banlist" class="banlist"></div>
+
+          <div id="bar" class="bar">Banned: 0</div>
+            <div class="three-quarters-loader"></div>
+           <div id="banlist" class="banlist"> </div>
             <button id="delCookie" class='kill'>Clean</button>
             <button id="showCookie" class='kill'>Show</button>
      </div>

@@ -924,7 +924,7 @@
     -webkit-animation-duration: 0.7s;
             animation-duration: 0.7s; }
   .ball-grid-pulse > div {
-    background-color: #fff;
+    background-color: red;
     width: 15px;
     height: 15px;
     border-radius: 100%;

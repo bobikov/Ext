@@ -39,6 +39,15 @@ body{
 	
 
 }
+.banlist a{
+	text-decoration: none;
+	color: #0045FF;
+
+}
+.banlist a:hover{
+	text-decoration: underline;
+}
+
 .kill{
 	display: inline-block;
 	border-radius:5px;
@@ -80,14 +89,25 @@ body{
 	margin-top: 5px;
 }
 .unbun{
-	color: red;
+	color: #FF5E1B;
 	font-weight: 600;
 	border: 1px solid #eee;
 	background-color: #fff;
 	cursor: pointer;
 	outline: none;
+	border-radius: 10px;
+}
+.unbun:hover{
+	background-color: #eee;
 }
 .banlist div{
 	margin: 0;
 	padding: 0;
+
+}
+.three-quarters-loader{
+	margin: 0 0 0 70px;
+}
+.banlist span{
+	margin-left: 6px;
 }

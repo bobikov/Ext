@@ -12,7 +12,7 @@ function delCookie(){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-	// $('<div class="loader-inner ball-pulse">').insertAfter($('.logo'));
+	// banlist.innerHTML = '<div class="loader-inner ball-pulse"></div>';
 	chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 		chrome.tabs.sendMessage(tabs[0].id, {message: "test"}, function(response){
 			for (var i = 0; i<response.length; i++){
@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				// banlist.innerHTML +=response[i];				
 			}	
 			$('#bar').text('Banned: '+response.length);
+			$('.three-quarters-loader').hide();
+			$('#banlist a').click(function(){newwin=window.open(); newwin.location = $(this).attr('href');});
 		});
 	});
 

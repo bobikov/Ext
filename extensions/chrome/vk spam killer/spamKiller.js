@@ -20,7 +20,7 @@ ccc = 0;
 hider();
 function hider() {	
 	var select = document.querySelectorAll('.wall_post_text, .wall_reply_text, .bp_text');
-	if($("#page_wall_header").length>0){
+	if($("#page_wall_header b").length>0){
 		// observeElement = $("#page_wall_header b");
 		
 		observeElement=$("#page_wall_header b");
@@ -96,9 +96,16 @@ function banOne(){
 		// $.removeCookie('ids');
 		// cookieBanIds=[];
 		$.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
-		var requestedBytes = 1024*1024*280;
+		event.target.parentNode.parentNode.parentNode.parentNode.parentNode.style.display='none';
 		webkitRequestFileSystem(window.TEMPORARY, requestedBytes, onInitFs, errorHandler);
+		$("#page_wall_header b").text(Math.floor((Math.random() * 5) + 1));
+		(setTimeout(function(){$('.scroll_fix').click();},50)());
+		// hider();
 
+
+
+
+		
 		// $.cookie('ids', event.target.parentNode.childNodes[0].getAttribute('href'));
 		// (event.target.id=='replyBan') ? cookieBanIds.push(event.target.parentNode.childNodes[1].getAttribute('href')) : cookieBanIds.push(event.target.parentNode.childNodes[0].getAttribute('href'));
 		// var readyToCookieArray=cookieBanIds.concat(getCookieToArray);
@@ -115,13 +122,13 @@ $(document).ready(function(){
 			ids = this.parentNode.childNodes[0].textContent;
 			// userid = $.grep(userid, function(n,i){
 			// 	return (n!== ids)
-			$("#page_wall_header b").text('started');
+
 			// });
 		
 
 	});
 
-	$("#page_wall_header b").text('started');
+	$("#page_wall_header b").text(Math.floor((Math.random() * 5) + 1));
 	$("#feed_summary").text('started');
 	$('#bt_summary').text('started');
 	// observeElement = $('#wall_more_progress');
@@ -135,8 +142,14 @@ $(document).ready(function(){
 	// 			// banId = event.target.parentNode.childNodes[0].getAttribute('href');
 	// 			console.log(request);
 	// 			sendResponse('ok');
-	// });	
-	
+	// });
+	var trig = 2000;	
+	$(window).on("scroll", function() {
+	    if ($(window).scrollTop() > trig) {
+	    	trig+=2000;
+	    	$("#page_wall_header b").text(Math.floor((Math.random() * 5) + 1));
+	    }
+    });
 });
 
 

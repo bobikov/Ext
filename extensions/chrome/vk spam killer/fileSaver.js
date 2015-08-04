@@ -1,14 +1,21 @@
 
 function onInitFs(fs) {
+	 		if ($.cookie('ids')!==undefined){
+			fileWriteAppend($.cookie('ids').toString());
+   	   		$.removeCookie('ids');
+   	   		
+   	   		hider();
+   	   		readFile();
+		}
+		else{
+			readFile();
+		}
 	$(document).ready(function(){
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 			sendResponse(ids);
 			
 		});
-   		if ($.cookie('ids')!==undefined){
-			fileWriteAppend($.cookie('ids').toString());
-   	   		$.removeCookie('ids');
-		};
+
 	});
 	function createFile(name){
 		fs.root.getFile(name, {create:true, exclusive:true}, function(file){
@@ -30,7 +37,7 @@ function onInitFs(fs) {
 			},errorHandler);
 		},errorHandler);
 	}
-	readFile();
+	// readFile();
 	function fileReWrite(){
 		fs.root.getFile('banlist.txt', {create: false}, function(entry){
 				entry.createWriter(function(fileWriter) {

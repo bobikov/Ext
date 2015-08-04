@@ -6,6 +6,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	console.log(request);
 	resp1 = request.searchtag;
 	resp2 = request.what_del;
+
 	delim = (request.delim) ? request.delim : 'b' ;
 });
 var arr = [];
