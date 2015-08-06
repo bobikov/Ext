@@ -1,45 +1,81 @@
 
 function onInitFs(fs) {
-	 		if ($.cookie('ids')!==undefined){
-			fileWriteAppend($.cookie('ids').toString());
+		var unn;
+	 	if ($.cookie('ids')!==undefined){
+			fileWriteAppend($.cookie('ids').toString(),'banlist2.txt');
    	   		$.removeCookie('ids');
    	   		
    	   		hider();
-   	   		readFile();
+   	   		readFile('banlist2.txt');
 		}
 		else{
-			readFile();
+			readFile('banlist2.txt');
 		}
 	$(document).ready(function(){
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-			sendResponse(ids);
-			
-		});
+			if (request.unbunId){
+				fileWriteAppend(request.unbunId, 'unbunned.txt');
+				for (var i=0; i<ids.length; i++){
+					if(ids[i]==request.unbunId){
+						ids.splice(i, 1);
+						
+					}
+				}
+				fileReWrite('banlist2.txt', ids)
+				sendResponse(ids);
 
+			}
+			
+			else if(request.message=='getUnban'){
+				readFile2('unbunned.txt');
+				sendResponse(unn);
+			}
+			else if(request.message=='getIds'){
+				sendResponse(ids);
+			}
+		});
 	});
-	function createFile(name){
-		fs.root.getFile(name, {create:true, exclusive:true}, function(file){
-				console.log('file ' + name + ' created');
+	function createFile(file_name){
+		fs.root.getFile(file_name, {create:true, exclusive:true}, function(file){
+				console.log('file ' + file_name + ' created');
 		})
 	}
-	// createFile('banlist.txt');
-	function readFile(){
-		fs.root.getFile('banlist.txt', {}, function(entry){
+	// createFile('banlist2.txt');
+	function readFile(file_name){
+		fs.root.getFile(file_name, {}, function(entry){
 			entry.file(function(file){
 				var reader = new FileReader();
 				reader.onloadend=function(e){
 					ids = this.result.split(',');
-					console.log(this.result);
-					
+					console.log(this.result);	
 				};
-			
+				reader.readAsText(file);
+			},errorHandler);
+		},errorHandler);
+	}
+	function readFile2(file_name){
+		fs.root.getFile(file_name, {}, function(entry){
+			entry.file(function(file){
+				var reader = new FileReader();
+				reader.onloadend=function(e){
+					unn = this.result.split(',');
+					console.log(this.result);	
+				};
 				reader.readAsText(file);
 			},errorHandler);
 		},errorHandler);
 	}
 	// readFile();
-	function fileReWrite(){
-		fs.root.getFile('banlist.txt', {create: false}, function(entry){
+	function deleteFile(file_name){
+		fs.root.getFile(file_name, {}, function(entry){
+			entry.remove(function(msg){
+				console.log('file removed');
+			})
+		})
+	}
+	// deleteFile();
+	function fileReWrite(file_name, text){
+		fs.root.getFile(file_name, {create: false}, function(entry){
 				entry.createWriter(function(fileWriter) {
      				fileWriter.onwriteend = function(e) {
      					if (fileWriter.length === 0) {
@@ -57,13 +93,13 @@ function onInitFs(fs) {
        					console.log('Write failed: ' + e.toString());
       				};
       				fileWriter.truncate(0);
-      				var blob = new Blob(["/idtest"], {type:'text/plain'});
+      				var blob = new Blob([text], {type:'text/plain'});
 			}, errorHandler);
 		}, errorHandler);
 	}
-	// fileReWrite();
-	function fileWriteAppend(ban_id){
-		fs.root.getFile('banlist.txt', {create: false}, function(fileEntry) {
+	// fileReWrite('unbunned.txt');
+	function fileWriteAppend(ban_id, file_name){
+		fs.root.getFile(file_name, {create: false}, function(fileEntry) {
 			fileEntry.createWriter(function(fileWriter) {
 				fileWriter.seek(fileWriter.length);
 				fileWriter.onwriteend = function(e) {
@@ -135,7 +171,7 @@ function errorHandler(e) {
   console.log('Error: ' + msg);
 }
 
-var requestedBytes = 1024*1024*280;
+var requestedBytes = 1024*1024*20;
 webkitRequestFileSystem(window.TEMPORARY, requestedBytes, onInitFs, errorHandler);
 var ids;
 var banlist;

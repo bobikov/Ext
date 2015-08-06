@@ -8,4 +8,4 @@ for (var i=0; i<ptag.length;i++){
 
 };
 newwin = window.open();
-newwin.document.write(arr);
+newwin.document.write(arr.toString().replace(/,/g,''));
